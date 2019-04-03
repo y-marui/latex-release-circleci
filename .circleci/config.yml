@@ -1,11 +1,11 @@
 version: 2
 jobs:
-  build:
+  latexmk:
     docker:
-      - image: yukimarui/main:latest
+      - image: ${DOCKERHUB_IMAGE}
         auth:
-          username: $DOCKERHUB_USERNAME
-          password: $DOCKERHUB_PASSWORD
+          username: ${DOCKERHUB_USERNAME}
+          password: ${DOCKERHUB_PASSWORD}
     steps:
       - checkout
       - run:
@@ -23,13 +23,13 @@ workflows:
   version: 2
   main:
     jobs:
-      - build:
+      - latexmk:
           filters:
             tags:
               only: /^\d+(\.\d+)*$/
       - publish-github-release:
           requires:
-            - build
+            - latexmk
           filters:
             branches:
               ignore: /.*/
