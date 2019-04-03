@@ -1,0 +1,39 @@
+version: 2
+jobs:
+  latexmk:
+    docker:
+      - image: ${DOCKERHUB_IMAGE}
+        auth:
+          username: ${DOCKERHUB_USERNAME}
+          password: ${DOCKERHUB_PASSWORD}
+    steps:
+      - checkout
+      - run:
+          command: latexmk
+  publish-github-release:
+      docker:
+        - image: cibuilds/github:0.10
+      steps:
+        - run:
+            name: "Publish Release on GitHub"
+            command: |
+              VERSION=${CIRCLE_TAG}
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} mian.pdf
+workflows:
+  version: 2
+  main:
+    jobs:
+      - latexmk:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+(\.\d+)*$/
+      - publish-github-release:
+          requires:
+            - latexmk
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+(\.\d+)*$/
