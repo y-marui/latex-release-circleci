@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: yukimarui/main:latest
+    steps:
+      - checkout
+      - run:
+          command: latexmk
+
+  publish-github-release:
+      docker:
+        - image: cibuilds/github:0.10
+      steps:
+        - run:
+            name: "Publish Release on GitHub"
+            command: |
+              VERSION=${CIRCLE_TAG}
+              ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} mian.pdf
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^\d+(\.\d+)*$/
+      - publish-github-release:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+(\.\d+)*$/
