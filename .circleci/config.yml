@@ -14,7 +14,8 @@ jobs:
     docker:
       - image: cibuilds/github:0.10
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -26,8 +27,6 @@ workflows:
     jobs:
       - latexmk:
           filters:
-            branches:
-              ignore: /.*/
             tags:
               only: /^\d+(\.\d+)*$/
       - publish-github-release:
