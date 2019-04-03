@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: yukimaru/main:latest
+      - image: yukimarui/main:latest
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
