@@ -2,7 +2,7 @@ version: 2
 jobs:
   latexmk:
     docker:
-      - image: ${DOCKERHUB_IMAGE}
+      - image: yukimarui/main:latest
         auth:
           username: ${DOCKERHUB_USERNAME}
           password: ${DOCKERHUB_PASSWORD}
