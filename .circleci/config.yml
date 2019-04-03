@@ -2,14 +2,20 @@ version: 2
 jobs:
   latexmk:
     docker:
-      - image: yukimarui/main:latest
+      - image: $DOCKERHUB_IMAGE
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - run:
+          name: "latexmk"
           command: latexmk
+          working_directory: .
+      - persist_to_workspace:
+          root: .
+          paths:
+            - main.pdf
   publish-github-release:
     docker:
       - image: cibuilds/github:0.10
