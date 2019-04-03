@@ -1,8 +1,6 @@
 # latex-release-circleci
 
-LaTeX 用のリポジトリで、git-flow を使う場合に、release した時に自動的に CircleCI で PDF を release に追加する。Docker image は各自で準備して、CircleCI の環境変数に、DOCKERHUB_USERNAME と　DOCKERHUB_PASSWORD を設定する。
-
-
+LaTeX 用のリポジトリで、git-flow を使う場合に、release した時に自動的に CircleCI で PDF を release に追加する。Docker image は各自で準備して、CircleCI の環境変数に、DOCKERHUB_IMAGE、 DOCKERHUB_USERNAME と DOCKERHUB_PASSWORD を設定する。
 
 
 
