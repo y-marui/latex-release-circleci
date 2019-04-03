@@ -20,6 +20,8 @@ CircleCI で分岐させる方法は、
 
 * https://qiita.com/sawadashota/items/ba89382d563bc90bb5cd
 
+* https://qiita.com/sanemat/items/4ddbd4016a5269265166
+
 
 
 CircleCI での LaTeX の実行については、
