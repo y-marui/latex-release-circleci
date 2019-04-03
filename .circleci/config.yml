@@ -6,7 +6,6 @@ jobs:
         auth:
           username: $DOCKERHUB_USERNAME
           password: $DOCKERHUB_PASSWORD
-      }
     steps:
       - checkout
       - run:
@@ -21,6 +20,7 @@ jobs:
             command: |
               VERSION=${CIRCLE_TAG}
               ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} mian.pdf
+
 workflows:
   version: 2
   main:
