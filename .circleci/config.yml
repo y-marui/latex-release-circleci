@@ -9,11 +9,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "latexmk"
+          name: "Excute latexmk"
           command: latexmk
           working_directory: .
+      - run:
+          name: "Store PDF"
+          command: |
+            mkdir -p /tmp/workspace
+            cp ./main.pdf /tmp/workspace/main.pdf
+          working_directory: .
       - persist_to_workspace:
-          root: .
+          root: /tmp/workspace
           paths:
             - main.pdf
   publish-github-release:
@@ -21,7 +27,7 @@ jobs:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: .
+          at: /tmp/workspace
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -33,6 +39,8 @@ workflows:
     jobs:
       - latexmk:
           filters:
+            branches:
+              ignore: /.*/
             tags:
               only: /^\d+(\.\d+)*$/
       - publish-github-release:
