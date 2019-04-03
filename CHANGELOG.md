@@ -13,3 +13,7 @@ CircleCI のバグを取り除く。
 
 CircleCI のバグを取り除く。
 
+## 1.4
+
+CircleCI のバグを取り除く。
+
