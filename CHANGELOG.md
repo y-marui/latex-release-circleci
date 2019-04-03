@@ -24,3 +24,11 @@ CircleCI のバグを取り除く。
 ## 1.6
 
 CircleCI のバグを取り除く。
+
+## 1.7
+
+CircleCI のバグを取り除く。
+
+develop の commit に tag をつけて動作確認済み。
+
+完成!
